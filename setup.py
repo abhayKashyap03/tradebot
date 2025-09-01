@@ -11,5 +11,6 @@ setup(
         "tweepy",
         "sec-api",
         "robin_stocks",
+        "pre-commit",
     ],
 )

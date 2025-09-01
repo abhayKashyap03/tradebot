@@ -14,15 +14,17 @@ def main():
     try:
         client = RobinhoodClient(email=ROBINHOOD_EMAIL, password=ROBINHOOD_PWD)
         client.login()
-        # We will add more logic here in the future
-        test_tickers = ['AAPL', 'TSLA', 'NVDA']
-        logger.info(f"Getting latest price for {', '.join(test_tickers)}...")
-        prices = client.get_latest_price(test_tickers)
-        for ticker, price in zip(test_tickers, prices):
-            logger.info(f"Latest price for {ticker}: {price}")
+        test_ticker = ['AAPL', 'TSLA', 'GARBAGE']
+        for ticker in test_ticker:
+            price = client.get_latest_price(ticker)
+
+            if price is not None:
+                logger.info(f"Successfully processed {ticker} at price ${price:.2f}")
+            else:
+                logger.warning(f"Could not get price for {ticker}. Skipping...")
 
     except Exception as e:
-        logger.error(f"An error occurred during bot execution: {e}")
+        logger.error(f"An unexpected error occurred during bot execution: {e}", exc_info=True)
     finally:
         if client and client.authenticated:
             client.logout()
