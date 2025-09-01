@@ -1,4 +1,15 @@
-*.pyc
-*.vscode
+# Byte-compiled / optimized / DLL files
+*__pycache__/
+*.py[cod]
+*$py.class
 
-*.__pycache__
+# IDE/env configuration
+.vscode/
+.idea/
+.conda/
+env/
+.env
+
+# Other
+*.egg-info/
+*.DS_Store
