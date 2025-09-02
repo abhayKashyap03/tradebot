@@ -18,11 +18,17 @@ A Python-based application for automated stock market analysis and trading based
    ```bash
    git clone https://www.github.com/abhaykashyap03/tradebot.git
 
-2. Setup conda env, install packages
+2. Setup virtual env, install packages
    ```bash
-   conda create -f environment.yaml
+   cd tradebot
+
+   conda env create -f environment.yml
    conda activate tradebot
-   pip install -e .
+
+   pip install uv
+
+   uv pip install -e .
 
    # install pre-commit hooks for dev & contributing
    pre-commit install
+   pre-commit run --all-files

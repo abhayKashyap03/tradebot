@@ -1,0 +1,23 @@
+
+[project]
+name = "tradebot"
+version = "0.1.0"
+readme = "README.md"
+dependencies = [
+    "google-genai",
+    "mypy>=1.17.1",
+    "numpy==1.23.5",
+    "pandas",
+    "pandas-ta",
+    "pre-commit",
+    "python-dotenv",
+    "requests",
+    "robin_stocks",
+    "sec-api",
+    "tweepy",
+]
+requires-python = ">=3.10"
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"

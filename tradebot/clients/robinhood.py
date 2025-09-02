@@ -1,9 +1,11 @@
 import logging
+import pandas as pd
 import robin_stocks.robinhood as rh
 from typing import Optional
 
 
 logger = logging.getLogger(__name__)
+
 
 class RobinhoodClient:
     def __init__(self, email: str, password: str):
@@ -13,7 +15,9 @@ class RobinhoodClient:
 
     def login(self):
         logger.info("Attempting to log into Robinhood...")
-        logger.warning("MANUAL ACTION REQUIRED: Please approve the login request on your Robinhood app.")
+        logger.warning(
+            "MANUAL ACTION REQUIRED: Please approve the login request on your Robinhood app."
+        )
         try:
             rh.login(username=self.email, password=self.password)
             self.authenticated = True
@@ -52,4 +56,38 @@ class RobinhoodClient:
             return price
         except Exception as e:
             logger.error(f"Failed to get latest price for {ticker}: {e}")
+            return None
+
+    def get_historical_data(
+        self, ticker: str, interval: str = "hour", span: str = "month"
+    ) -> Optional[pd.DataFrame]:
+        if not self.authenticated:
+            logger.warning("User is not logged in")
+            return None
+
+        try:
+            raw_historicals = rh.get_stock_historicals(
+                ticker.upper(), interval=interval, span=span
+            )
+
+            if not raw_historicals or raw_historicals[0] is None:
+                logger.warning(f"No historical data found for {ticker.upper()}")
+                return None
+
+            # 2. Convert the list of dictionaries into a pandas DataFrame
+            data = pd.DataFrame(raw_historicals)
+
+            # 3. Clean and format the DataFrame
+            data.set_index(pd.to_datetime(data["begins_at"]), inplace=True)
+            data[["close_price", "open_price", "high_price", "low_price", "volume"]] = (
+                data[
+                    ["close_price", "open_price", "high_price", "low_price", "volume"]
+                ].astype(float)
+            )
+            return data[
+                ["open_price", "high_price", "low_price", "close_price", "volume"]
+            ]
+
+        except Exception as e:
+            logger.error(f"Failed to get historical data for {ticker}: {e}")
             return None

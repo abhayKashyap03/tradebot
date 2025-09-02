@@ -1,6 +1,7 @@
 import logging
 import sys
 
+
 def setup_logger():
     """
     Set up the root logger to output to the console.

@@ -9,4 +9,6 @@ ROBINHOOD_EMAIL = os.getenv("ROBINHOOD_EMAIL")
 ROBINHOOD_PWD = os.getenv("ROBINHOOD_PWD")
 
 if not ROBINHOOD_EMAIL or not ROBINHOOD_PWD:
-    raise ValueError("Robinhood credentials (email/password) are not set in the .env file.")
+    raise ValueError(
+        "Robinhood credentials (email/password) are not set in the .env file."
+    )

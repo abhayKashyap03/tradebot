@@ -9,7 +9,9 @@
 .conda/
 env/
 .env
+.venv
 
 # Other
 *.egg-info/
 *.DS_Store
+.pdm-build/
