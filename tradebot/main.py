@@ -1,8 +1,10 @@
 import logging
+
 from tradebot.configs.config import ROBINHOOD_EMAIL, ROBINHOOD_PWD
 from tradebot.configs.logger_config import setup_logger
 from tradebot.clients.robinhood import RobinhoodClient
 from tradebot.analyzers.technical import calculate_sma
+
 
 logger = logging.getLogger(__name__)
 
@@ -25,14 +27,18 @@ def main():
             else:
                 hist_data = client.get_historical_data(ticker)
 
-                if hist_data is not None:
+                if hist_data is None:
+                    logger.warning(
+                        f"Could not get historical data for {ticker}. Skipping SMA calculation..."
+                    )
+                else:
                     sma = calculate_sma(hist_data, period=50).iloc[-1]
-                    if sma is not None:
+                    if sma is None:
+                        logger.warning(f"Could not calculate SMA for {ticker}.")
+                    else:
                         logger.info(
                             f"Analysis for {ticker}: Price=${price:.2f}, SMA(50)=${sma:.2f}"
                         )
-                    else:
-                        logger.warning(f"Could not calculate SMA for {ticker}.")
 
     except Exception as e:
         logger.error(
