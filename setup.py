@@ -12,7 +12,7 @@ setup(
         "sec-api",
         "robin_stocks",
         "pre-commit",
-        "numpy==1.23.5",
+        "numpy<2.0.0",
         "pandas",
         "pandas-ta",
     ],

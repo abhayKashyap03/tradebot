@@ -5,8 +5,8 @@ version = "0.1.0"
 readme = "README.md"
 dependencies = [
     "google-genai",
-    "mypy>=1.17.1",
-    "numpy==1.23.5",
+    "mypy",
+    "numpy<2.0.0",
     "pandas",
     "pandas-ta",
     "pre-commit",
