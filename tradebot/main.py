@@ -3,7 +3,12 @@ import logging
 from tradebot.configs.config import ROBINHOOD_EMAIL, ROBINHOOD_PWD
 from tradebot.configs.logger_config import setup_logger
 from tradebot.clients.robinhood import RobinhoodClient
-from tradebot.analyzers.technical import calculate_sma
+from tradebot.analyzers.technical import (
+    calculate_sma,
+    calculate_rsi,
+    calculate_macd,
+    get_latest_indicator,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -32,12 +37,14 @@ def main():
                         f"Could not get historical data for {ticker}. Skipping SMA calculation..."
                     )
                 else:
-                    sma = calculate_sma(hist_data, period=50).iloc[-1]
-                    if sma is None:
-                        logger.warning(f"Could not calculate SMA for {ticker}.")
+                    sma = get_latest_indicator(calculate_sma(hist_data, period=50))
+                    rsi = get_latest_indicator(calculate_rsi(hist_data, period=14))
+                    macd = get_latest_indicator(calculate_macd(hist_data))
+                    if sma is None or rsi is None or macd is None:
+                        logger.warning(f"Could not calculate indicators for {ticker}.")
                     else:
                         logger.info(
-                            f"Analysis for {ticker}: Price=${price:.2f}, SMA(50)=${sma:.2f}"
+                            f"Analysis for {ticker}: Price=${price:.2f}, SMA(50)=${sma:.2f}, RSI(14)=${rsi:.2f}, MACD(12,26,9)=${macd.to_dict()}"
                         )
 
     except Exception as e:
