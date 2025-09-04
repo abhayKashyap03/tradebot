@@ -15,6 +15,7 @@ dependencies = [
     "robin_stocks",
     "sec-api",
     "tweepy",
+    "alpha-vantage",
 ]
 requires-python = ">=3.10"
 
