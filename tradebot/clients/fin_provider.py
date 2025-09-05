@@ -17,7 +17,7 @@ class FinDataProvider:
         try:
             quote = self.av_ts.get_quote_endpoint(ticker.upper())[0]
 
-            if quote.empty or quote is None:
+            if quote is None or quote.empty:
                 logger.warning(f"No price data found for ticker: {ticker.upper()}")
                 return None
 
