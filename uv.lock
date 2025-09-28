@@ -733,6 +733,18 @@ wheels = [
 ]
 
 [[package]]
+name = "newsapi-python"
+version = "0.2.7"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "requests" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/f8/4b/12fb9495211fc5a6d3a96968759c1a48444124a1654aaf65d0de80b46794/newsapi-python-0.2.7.tar.gz", hash = "sha256:a4b66d5dd9892198cdaa476f7542f2625cdd218e5e3121c8f880b2ace717a3c2", size = 7485, upload-time = "2023-03-02T13:15:35.89Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/74/47/e3b099102f0c826d37841d2266e19f1568dcf58ba86e4c6948e2a124f91d/newsapi_python-0.2.7-py2.py3-none-any.whl", hash = "sha256:11d34013a24d92ca7b7cbdac84ed2d504862b1e22467bc2a9a6913a70962318e", size = 7942, upload-time = "2023-03-02T13:15:34.475Z" },
+]
+
+[[package]]
 name = "nodeenv"
 version = "1.9.1"
 source = { registry = "https://pypi.org/simple" }
@@ -797,15 +809,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/bc/ad/d1f0a867064f62ffde917876cc09cfd53352af2b1f147c140fd1943a0c7a/pandas-2.1.0-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:70cf866af3ab346a10debba8ea78077cf3a8cd14bd5e4bed3d41555a3280041c", size = 13463414, upload-time = "2023-08-30T13:13:58.774Z" },
     { url = "https://files.pythonhosted.org/packages/b7/f8/32d6b5aa4c4bc045fa2c4c58f88c325facc54721956c6313f0afea8ea853/pandas-2.1.0-cp311-cp311-win_amd64.whl", hash = "sha256:d53c8c1001f6a192ff1de1efe03b31a423d0eee2e9e855e69d004308e046e694", size = 11043589, upload-time = "2023-08-30T13:14:02.051Z" },
 ]
-
-[[package]]
-name = "pandas-ta"
-version = "0.3.14b0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "pandas" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/f7/0b/1666f0a185d4f08215f53cc088122a73c92421447b04028f0464fabe1ce6/pandas_ta-0.3.14b.tar.gz", hash = "sha256:0fa35aec831d2815ea30b871688a8d20a76b288a7be2d26cc00c35cd8c09a993", size = 115089, upload-time = "2021-07-28T20:51:17.456Z" }
 
 [[package]]
 name = "pathspec"
@@ -1286,9 +1289,9 @@ dependencies = [
     { name = "alpha-vantage" },
     { name = "google-genai" },
     { name = "mypy" },
+    { name = "newsapi-python" },
     { name = "numpy" },
     { name = "pandas" },
-    { name = "pandas-ta" },
     { name = "pre-commit" },
     { name = "python-dotenv" },
     { name = "requests" },
@@ -1302,9 +1305,9 @@ requires-dist = [
     { name = "alpha-vantage" },
     { name = "google-genai" },
     { name = "mypy" },
+    { name = "newsapi-python", specifier = ">=0.2.7" },
     { name = "numpy", specifier = "<2.0.0" },
     { name = "pandas" },
-    { name = "pandas-ta" },
     { name = "pre-commit" },
     { name = "python-dotenv" },
     { name = "requests" },
