@@ -11,12 +11,13 @@ repos:
     hooks:
       - id: mypy
         name: Check mypy
-        entry: uv run mypy --ignore-missing-imports --namespace-packages -p tradebot
+        entry: mypy --ignore-missing-imports --namespace-packages -p tradebot
         types: [python]
         pass_filenames: false
         require_serial: true
         verbose: true
         args: [--show-error-codes]
+        additional_dependencies: [mypy]
 
   - repo: https://github.com/codespell-project/codespell
     # Configuration for codespell is in pyproject.toml
