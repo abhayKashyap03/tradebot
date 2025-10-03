@@ -12,8 +12,8 @@ This project is an autonomous trading bot written in Python. It analyzes stock m
 *   **pandas** for data manipulation
 *   **requests** for making HTTP requests
 *   **robin-stocks** for trading with Robinhood
-*   **sec-api** for fetching financial data
-*   **tweepy** for accessing Twitter data
+*   **sec-api** for insider trading data
+*   **tweepy** for Twitter data
 *   **alpha-vantage** for financial data
 *   **newsapi-python** for news articles
 
@@ -47,14 +47,20 @@ The project is structured into the following components:
     pre-commit run --all-files
     ```
 
-4.  **Run the bot:**
+4. **Testing code and new changes (for dev):**
+   ```bash
+   pytest tests/
+   ```
+
+5.  **Run the bot:**
     ```bash
     python -m tradebot.main
     ```
 
 # Development Conventions
 
-*   **Code Style:** The project uses `ruff` for linting and formatting. The configuration is in `pyproject.toml`.
+*   **Code Style:** The project uses `ruff` for linting and formatting. The configuration is in `.pre-commit-config.yaml`.
 *   **Type Hinting:** The project uses `mypy` for static type checking.
 *   **Testing:** The project uses `pytest` for testing. Tests are located in the `tests/` directory.
-*   **Commits:** Commit messages should follow the [Conventional Commits](https.conventionalcommits.org/en/v1.0.0/) specification.
+*   **Commits:** Always run `pre-commit` on all files before committing. Commit messages should follow the [Conventional Commits](https.conventionalcommits.org/en/v1.0.0/) specification.
+* **Making Changes:** Always confirm with the user before making significant changes or running important commands (including git). Unless the user specifies that you can autonomously run commands and make changes in the prompt, always confirm first.
