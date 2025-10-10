@@ -12,7 +12,7 @@ from tradebot.configs.config import (
     TWITTER_BEARER_TOKEN,
 )
 from tradebot.configs.logger_config import setup_logger
-from tradebot.clients.robinhood import RobinhoodClient
+from tradebot.clients.robinhood_client import RobinhoodClient
 from tradebot.clients.fin_provider import FinDataProvider
 from tradebot.clients.media_provider import NewsDataProvider, TwitterDataProvider
 from tradebot.analyzers.technical import (
@@ -30,6 +30,7 @@ from tradebot.analyzers.fundamentals import (
     calculate_de_ratio,
 )
 from tradebot.strategy import StrategyEngine, StockData
+from tradebot.risk_mgmt import RiskManager
 
 
 logger = logging.getLogger(__name__)
@@ -44,6 +45,8 @@ def main():
     try:
         rh_client = RobinhoodClient(email=ROBINHOOD_EMAIL, password=ROBINHOOD_PWD)
         rh_client.login()
+
+        portfolio = rh_client.get_portfolio_state()
 
         fd_client = FinDataProvider(api_key=AV_API_KEY)
 
@@ -116,7 +119,7 @@ def main():
             stock_data = StockData(
                 ticker=ticker,
                 price=price,
-                volume=None,
+                volume=hist_data["volume"].iloc[-1],
                 sma=sma,
                 rsi=rsi,
                 macd=macd,
@@ -133,6 +136,9 @@ def main():
             signal, reasoning = strategy_engine.decide_trade(stock_data)
             logger.info(f"Trading signal for {ticker}: {signal.name}")
             logger.info(f"Reasoning: {reasoning}")
+
+            risk_manager = RiskManager(rh_client=rh_client)
+            risk_manager.assess_risk(stock_data=stock_data, portfolio=portfolio)
 
     except Exception as e:
         logger.error(

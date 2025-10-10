@@ -43,7 +43,7 @@ class NewsDataProvider:
                 logger.info(
                     f"Fetching recent articles for {query} from today to a month ago..."
                 )
-                from_param = (date.today() - relativedelta(months=1)).strftime(
+                from_param = (date.today() - relativedelta(months=1, days=-1)).strftime(
                     "%Y-%m-%d"
                 )
                 to = date.today().strftime("%Y-%m-%d")

@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from typing import Dict, List, Optional, Any, Union
 
 from google import genai
-from google.genai import types
+from google.genai.types import GenerateContentConfig
 
 
 class Signal(Enum):
@@ -16,7 +16,7 @@ class Signal(Enum):
 class TradeSignal:
     signal: Signal
     reasoning: str
-    confidence: str
+    confidence: float
 
 
 @dataclass
@@ -73,20 +73,19 @@ class StrategyEngine:
 
     def _load_prompt_template(self, template_name: str) -> str:
         templates = {
-            "basic_analysis": (
-                "Given the following stock data:\n"
-                "Basic Info: {basic_info}\n"
-                "Fundamentals: {fundamentals}\n"
-                "Technicals: {technicals}\n"
-                "News Articles: {news_articles}\n"
-                "Tweets: {tweets}\n"
-                "Provide a concise trading signal (BUY, SELL, HOLD) with reasoning in this format:\n"
-                "{\n"
-                '"signal": BUY/SELL/HOLD,\n'
-                '"reasoning": "Detailed reasoning here",\n'
-                '"confidence": "High/Medium/Low"\n'
-                "}"
-            ),
+            "basic_analysis": """Given the following stock data:
+                Basic Info: {basic_info}
+                Fundamentals: {fundamentals}
+                Technicals: {technicals}
+                News Articles: {news_articles}
+                Tweets: {tweets}
+                Provide a concise trading signal (BUY, SELL, HOLD) with reasoning in this format:
+                {{
+                    "signal": "BUY/SELL/HOLD",
+                    "reasoning": "Detailed reasoning here",
+                    "confidence": "High/Medium/Low"
+                }}
+                """
         }
         return templates.get(template_name, "")
 
@@ -111,7 +110,7 @@ class StrategyEngine:
         response = self.llm_client.models.generate_content(
             model="gemini-2.5-flash",
             contents=f'"role": "user", "content": "{prompt}"',
-            config=types.GenerateContentConfig(
+            config=GenerateContentConfig(
                 system_instruction=[
                     "You are a financial trading assistant. \
                     Provide clear and concise trading signals based on the data provided \

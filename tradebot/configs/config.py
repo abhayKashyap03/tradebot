@@ -16,6 +16,10 @@ TWITTER_ACCESS_TOKEN_SECRET = os.getenv("TWITTER_ACCESS_TOKEN_SECRET")
 TWITTER_BEARER_TOKEN = os.getenv("TWITTER_BEARER_TOKEN")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
+MAX_POSITION_SIZE = 150
+MAX_DAILY_TRADES = 6
+MAX_PORTFOLIO_SHARE = 17
+
 if not ROBINHOOD_EMAIL or not ROBINHOOD_PWD:
     raise ValueError(
         "Robinhood credentials (email/password) are not set in the .env file."
