@@ -17,7 +17,15 @@ A Python-based application for automated stock market analysis and trading based
 *   **[Complete]** Core Infrastructure (Logging, Configuration)
 *   **[Complete]** Data Acquisition Layer
 *   **[Complete]** Analysis & Strategy Engine
-*   **[In Progress]** Trade Execution & Risk Management
+*   **[Completed]** Trade Execution & Risk Management
+*   Overall integration in-progress.
+
+**v2 plans:**
+* SLM implementation for sentiment analysis focused on finance
+* Continual learning experimentation
+* Time-series predictor
+* Specialist vs. generalist model implementations
+* Backtesting strategies
 
 The bot can currently analyze market data and generate trading signals. However, it is **not yet capable of executing live trades** or performing risk management.
 
